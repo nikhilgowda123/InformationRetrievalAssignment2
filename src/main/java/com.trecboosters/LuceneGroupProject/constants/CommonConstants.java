@@ -1,4 +1,4 @@
-package com.assignment.lucene.lucenmavenprojectnikhil.constants;
+package com.trecboosters.LuceneGroupProject.constants;
 
 public class CommonConstants {
 
@@ -11,7 +11,6 @@ public class CommonConstants {
 	public static final String SIMILARITY_OPTION = "s";
 
 	public static final String HELP_OPTION = "h";
-
 	public static final String DEFAULT_ANALYSER = "english";
 
 	public static final String DEFAULT_SIMILARITY = "bm25";
