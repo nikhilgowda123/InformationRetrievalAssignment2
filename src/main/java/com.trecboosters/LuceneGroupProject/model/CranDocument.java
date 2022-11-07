@@ -1,4 +1,4 @@
-package com.assignment.lucene.lucenmavenprojectnikhil.model;
+package com.trecboosters.LuceneGroupProject.model;
 
 public class CranDocument {
 

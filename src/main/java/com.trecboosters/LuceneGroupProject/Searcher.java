@@ -1,4 +1,4 @@
-package com.assignment.lucene.lucenmavenprojectnikhil;
+package com.trecboosters.LuceneGroupProject;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +21,9 @@ import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.assignment.lucene.lucenmavenprojectnikhil.constants.CommonConstants;
-import com.assignment.lucene.lucenmavenprojectnikhil.model.QueryModel;
-import com.assignment.lucene.lucenmavenprojectnikhil.parser.Parser;
+import com.trecboosters.LuceneGroupProject.constants.CommonConstants;
+import com.trecboosters.LuceneGroupProject.model.QueryModel;
+import com.trecboosters.LuceneGroupProject.parser.Parser;
 
 public class Searcher {
 

@@ -1,4 +1,4 @@
-package com.assignment.lucene.lucenmavenprojectnikhil.parser;
+package com.trecboosters.LuceneGroupProject.parser;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,9 +16,9 @@ import org.apache.lucene.document.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.assignment.lucene.lucenmavenprojectnikhil.constants.CommonConstants;
-import com.assignment.lucene.lucenmavenprojectnikhil.model.CranDocument;
-import com.assignment.lucene.lucenmavenprojectnikhil.model.QueryModel;
+import com.trecboosters.LuceneGroupProject.constants.CommonConstants;
+import com.trecboosters.LuceneGroupProject.model.CranDocument;
+import com.trecboosters.LuceneGroupProject.model.QueryModel;
 
 public class Parser {
 
