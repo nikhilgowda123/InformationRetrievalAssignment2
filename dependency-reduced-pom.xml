@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.assignment.lucene</groupId>
-  <artifactId>lucenmavenprojectnikhil</artifactId>
-  <name>lucenmavenprojectnikhil</name>
+  <groupId>com.trecboosters</groupId>
+  <artifactId>trecboosters</artifactId>
+  <name>trecbooster</name>
   <version>0.0.1-SNAPSHOT</version>
   <url>http://www.example.com</url>
   <build>
@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.assignment.lucene.lucenmavenprojectnikhil.App</mainClass>
+                  <mainClass>com.trecboosters.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>
