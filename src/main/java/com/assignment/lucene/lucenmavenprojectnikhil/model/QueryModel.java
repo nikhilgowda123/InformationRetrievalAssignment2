@@ -1,4 +1,4 @@
-package com.trecboosters.LuceneGroupProject.model;
+package com.assignment.lucene.lucenmavenprojectnikhil.model;
 
 public class QueryModel {
 
