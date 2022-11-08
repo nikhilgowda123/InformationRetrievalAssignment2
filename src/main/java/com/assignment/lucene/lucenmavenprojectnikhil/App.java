@@ -1,4 +1,4 @@
-package com.trecboosters.LuceneGroupProject;
+package com.assignment.lucene.lucenmavenprojectnikhil;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -8,7 +8,7 @@ import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.trecboosters.LuceneGroupProject.constants.CommonConstants;
+import com.assignment.lucene.lucenmavenprojectnikhil.constants.CommonConstants;
 
 
 public class App 

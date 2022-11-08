@@ -1,4 +1,4 @@
-package com.trecboosters.LuceneGroupProject;
+package com.assignment.lucene.lucenmavenprojectnikhil;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -27,8 +27,8 @@ import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.trecboosters.LuceneGroupProject.constants.CommonConstants;
-import com.trecboosters.LuceneGroupProject.parser.Parser;
+import com.assignment.lucene.lucenmavenprojectnikhil.constants.CommonConstants;
+import com.assignment.lucene.lucenmavenprojectnikhil.parser.Parser;
 
 public class Indexer {
 
