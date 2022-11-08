@@ -6,7 +6,7 @@ Steps to Run the Process
 
 2) Execute the Generated JAR file
 
--> java -server -Xmx2g -cp ./target/lucenmavenprojectnikhil-0.0.1-SNAPSHOT.jar com.assignment.lucene.lucenmavenprojectnikhil.App
+java -server -Xmx2g -cp ./target/trecboosters-0.0.1-SNAPSHOT.jar com.trecboosters.App
 
 Note: option -a can be used for selecting analyzer, -s can be used for selecting similarities. use -h to know more about the list of available analyzers
 and similarities to choose. 
