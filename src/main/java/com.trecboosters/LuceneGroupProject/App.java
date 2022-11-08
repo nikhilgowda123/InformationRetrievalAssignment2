@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.trecboosters.LuceneGroupProject.constants.CommonConstants;
-import com.trecboosters.LuceneGroupProject.parser.Parser;
+
 
 public class App 
 {
@@ -56,8 +56,6 @@ public class App
 		log.info("----------------STARTING INDEXING-------------------");
 		Indexer.createIndex(CommonConstants.CRAN_DOCUMENT_PATH, selectedAnalyzer, selectedSimilarity);
 		log.info("----------------COMPLETED INDEXING-------------------");
-		log.info("---------PARTING TOPICS FOR QUERY GENERATION---------");
-		Parser.parseTopic(CommonConstants.TOPIC_PATH);
 		log.info("------------------RUNNING QUERIES--------------------");
 		Searcher.runQueries(CommonConstants.CRAN_QUERY_PATH, 1000, selectedAnalyzer, selectedSimilarity);
 		log.info("-------------RUNNING QUERIES COMPLETED---------------");		
