@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import com.trecboosters.LuceneGroupProject.constants.CommonConstants;
 import com.trecboosters.LuceneGroupProject.model.CranDocument;
 import com.trecboosters.LuceneGroupProject.model.QueryModel;
-import com.trecboosters.LuceneGroupProject.model.TopicModel;
 
 public class Parser {
 
@@ -27,7 +26,6 @@ public class Parser {
 
 	private static ArrayList<Document> cranDocuments = new ArrayList<Document>();
 	private static ArrayList<QueryModel> queries = new ArrayList<QueryModel>();
-	private static ArrayList<TopicModel> topics = new ArrayList<TopicModel>();
 
 	public static ArrayList<Document> parse(String docPath) throws IOException {
 		try {
@@ -123,71 +121,6 @@ public class Parser {
 			log.error("Exception occured while parsing query", e);
 		}
 		return queries;
-	}
-
-	public static ArrayList<TopicModel> parseTopic(String topicPath) {
-		try {
-			List<String> fileData = Files.readAllLines(Paths.get(topicPath), StandardCharsets.UTF_8);
-
-			String text = StringUtils.EMPTY;
-			TopicModel topicModel = null;
-
-			for (String line : fileData) {
-
-				if(!(line.trim().length() > 0 )){
-					continue;
-				}
-
-				if (line.charAt(0) == CommonConstants.ANGLE_BRACKET) {
-					String field = line.substring(0, 5);
-
-					switch (field) {
-						case CommonConstants.TOPIC_FIELD_TOP:
-							topicModel = new TopicModel();
-							break;
-
-						case CommonConstants.TOPIC_FIELD_NUMBER:
-							topicModel.setNum(line.substring(14));
-							break;
-
-						case CommonConstants.TOPIC_FIELD_TITLE:
-							String[] titles = line.substring(8).split(CommonConstants.COMMA);
-							for(String title : titles) {
-								topicModel.setTitle(title.trim());
-							}
-							break;
-
-						case CommonConstants.TOPIC_FIELD_DESCRIPTION:
-							break;
-
-						case CommonConstants.TOPIC_FIELD_NARRATIVE:
-							topicModel.setDesc(text); // current line is the beginning of narrative => description is complete
-							text = StringUtils.EMPTY; // empty text so narrative can start being collected
-							break;
-
-						case CommonConstants.TOPIC_FIELD_BOTTOM:
-							topicModel.setNarr(text); // current line marks the end of a document => narrative is complete
-							text = StringUtils.EMPTY;
-							topics.add(topicModel);
-
-//							log.info("Num: " + topicModel.getNum());
-//							log.info("Title: " + topicModel.getTitles());
-//							log.info("Description: " + topicModel.getDesc());
-//							log.info("Narrative: " + topicModel.getNarr());
-							break;
-
-						default:
-							log.info("Unknown field parsed: " + field);
-					}
-				} else {
-					text += line + CommonConstants.SPACE;
-				}
-			}
-
-		} catch (IOException e) {
-			log.error("Exception occured while parsing topic", e);
-		}
-		return topics;
 	}
 
 	private static Document createLuceneDocument(CranDocument doc) {

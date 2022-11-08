@@ -6,8 +6,6 @@ public class CommonConstants {
 
 	public static final String CRAN_QUERY_PATH = "cranfieldData/cran.qry";
 
-	public static final String TOPIC_PATH = "topicsForQuery";
-
 	public static final String ANALYSER_OPTION = "a";
 
 	public static final String SIMILARITY_OPTION = "s";
@@ -57,10 +55,6 @@ public class CommonConstants {
 
 	public static final char DOT = '.';
 
-	public static final char ANGLE_BRACKET = '<';
-
-	public static final String COMMA = ",";
-
 	public static final char SPACE = ' ';
 
 	public static final char NEWLINE = '\n';
@@ -74,18 +68,5 @@ public class CommonConstants {
 	public static final String CRAN_DOC_FIELD_ID = ".I";
 
 	public static final String LUCENE_DOC_ID = "docid";
-
-	public static final String TOPIC_FIELD_TOP = "<top>";
-
-	public static final String TOPIC_FIELD_BOTTOM = "</top";
-
-	public static final String TOPIC_FIELD_NUMBER = "<num>";
-
-	public static final String TOPIC_FIELD_TITLE = "<titl";
-
-	public static final String TOPIC_FIELD_DESCRIPTION = "<desc";
-
-	public static final String TOPIC_FIELD_NARRATIVE = "<narr";
-
 
 }
