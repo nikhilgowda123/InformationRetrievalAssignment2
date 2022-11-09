@@ -107,6 +107,24 @@ public class CommonConstants {
 	public static final String CRAN_DOC_FIELD_WORDS = ".W";
 
 	public static final String CRAN_DOC_FIELD_ID = ".I";
+	
+	public static final char ANGLE_BRACKET = '<';
+	
+	public static final String COMMA = ",";
+	
+	public static final String QUERY_PATH = "topicsForQuery";
+	
+	public static final String QUERY_FIELD_TOP = "<top>";
+
+	public static final String QUERY_FIELD_NUMBER = "<num>";
+
+	public static final String QUERY_FIELD_TITLE = "<titl";
+
+	public static final String QUERY_FIELD_DESCRIPTION = "<desc";
+
+	public static final String QUERY_FIELD_NARRATIVE = "<narr";
+
+	public static final String QUERY_FIELD_BOTTOM = "</top";
 
 
 }

@@ -57,7 +57,7 @@ public class Searcher {
 					+ "Similarity Used");
 
 			for (QueryModel element : queries) {
-				String queryString = QueryParser.escape(element.getQuery().trim());
+				String queryString = QueryParser.escape(element.getTitle().trim());
 				Query query = queryParser.parse(queryString);
 				search(indexSearcher, query, writer, queries.indexOf(element) + 1, selectedAnalyser,
 						selectedSimilarity);

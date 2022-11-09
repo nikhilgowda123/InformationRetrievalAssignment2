@@ -57,7 +57,7 @@ public class App
 		Indexer.createIndex(CommonConstants.CRAN_DOCUMENT_PATH, selectedAnalyzer, selectedSimilarity);
 		log.info("----------------COMPLETED INDEXING-------------------");
 		log.info("------------------RUNNING QUERIES--------------------");
-		Searcher.runQueries(CommonConstants.CRAN_QUERY_PATH, 1000, selectedAnalyzer, selectedSimilarity);
+		Searcher.runQueries(CommonConstants.QUERY_PATH, 1000, selectedAnalyzer, selectedSimilarity);
 		log.info("-------------RUNNING QUERIES COMPLETED---------------");		
 		log.info("---------------------FINISHED------------------------");
 	}

@@ -1,33 +1,50 @@
 package com.trecboosters.model;
 
 public class QueryModel {
+	
+	public String num;
 
-	public String queryid = "";
-
-	public String getQueryid() {
-		return queryid;
+	public String getNum() {
+		return num;
 	}
 
-	public void setQueryid(String queryid) {
-		this.queryid = queryid;
+	public void setNum(String num) {
+		this.num = num;
 	}
 
-	public String query = "";
+	public String title = "";
 
-	public String getQuery() {
-		return query;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setQuery(String query) {
-		this.query = query;
+	public void setTitle(String title) {
+		this.title = title;
 	}
+
+	public String desc = "";
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public String narr = "";
+
+	public String getNarr() {
+		return narr;
+	}
+
+	public void setNarr(String narr) {
+		this.narr = narr;
+	}
+
 
 	public QueryModel() {
-	}
 
-	public QueryModel(String queryid, String query) {
-		this.queryid = queryid;
-		this.query = query;
 	}
 
 }
