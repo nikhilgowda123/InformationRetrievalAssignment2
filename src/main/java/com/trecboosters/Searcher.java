@@ -13,6 +13,9 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.BoostQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -48,7 +51,7 @@ public class Searcher {
 			ArrayList<QueryModel> queries = Parser.parseQuery(queryPath);
 
 			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
-					new String[] { CommonConstants.TITLE, CommonConstants.AUTHOR, CommonConstants.WORDS }, analyzer);
+					new String[] { CommonConstants.DOC_NO_TAG, CommonConstants.HEADLINE_TAG, CommonConstants.TEXT_TAG }, analyzer);
 
 			NUM_RESULTS = numResults;
 			log.debug("Executing the fetched queries, max_hits set to: " + NUM_RESULTS);
@@ -57,10 +60,23 @@ public class Searcher {
 					+ "Similarity Used");
 
 			for (QueryModel element : queries) {
-				String queryString = QueryParser.escape(element.getTitle().trim());
-				Query query = queryParser.parse(queryString);
-				search(indexSearcher, query, writer, queries.indexOf(element) + 1, selectedAnalyser,
-						selectedSimilarity);
+				Query titleQuery = queryParser.parse(QueryParser.escape(element.getTitle().trim()));
+				Query descriptionQuery = queryParser.parse(QueryParser.escape(element.getDesc().trim()));
+				Query narrativeQuery = queryParser.parse(QueryParser.escape(element.getNarr().trim()));
+
+				BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();	
+				booleanQueryBuilder.add(new BoostQuery(titleQuery, (float) 5), BooleanClause.Occur.SHOULD);
+				booleanQueryBuilder.add(new BoostQuery(descriptionQuery, (float) 1), BooleanClause.Occur.SHOULD);
+				booleanQueryBuilder.add(new BoostQuery(narrativeQuery, (float) 1), BooleanClause.Occur.SHOULD);
+				
+				search(
+					indexSearcher, 
+					booleanQueryBuilder.build(), 
+					writer, 
+					queries.indexOf(element) + 1, 
+					selectedAnalyser,
+					selectedSimilarity
+					);
 			}
 
 			directoryReader.close();
@@ -79,6 +95,7 @@ public class Searcher {
 		for (int i = 0; i < hits.length; i++) {
 			Document hitDocument = is.doc(hits[i].doc);
 			writer.println(queryID + " 0 " + hitDocument.get("docid") + " 0 " + hits[i].score + " "+selectedAnalyser + " "+selectedSimilarity);
+			log.info(queryID + " 0 " + hitDocument.get("docid") + " 0 " + hits[i].score + " "+selectedAnalyser + " "+selectedSimilarity);
 		}
 	}
 
