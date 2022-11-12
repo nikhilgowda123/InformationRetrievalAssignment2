@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
@@ -49,9 +50,12 @@ public class Searcher {
 			PrintWriter writer = new PrintWriter(resultFile, StandardCharsets.UTF_8.name());
 
 			ArrayList<QueryModel> queries = Parser.parseQuery(queryPath);
+			
+	        HashMap<String, Float> boosts = new HashMap<String, Float>();
+	        boosts.put(CommonConstants.HEADLINE_TAG.toLowerCase(), (float) 3);
 
 			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
-					new String[] { CommonConstants.DOC_NO_TAG, CommonConstants.HEADLINE_TAG, CommonConstants.TEXT_TAG }, analyzer);
+					new String[] { CommonConstants.HEADLINE_TAG.toLowerCase(), CommonConstants.TEXT_TAG.toLowerCase() }, analyzer, boosts);
 
 			NUM_RESULTS = numResults;
 			log.debug("Executing the fetched queries, max_hits set to: " + NUM_RESULTS);
@@ -66,13 +70,13 @@ public class Searcher {
 
 				BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();	
 				booleanQueryBuilder.add(new BoostQuery(titleQuery, (float) 5), BooleanClause.Occur.SHOULD);
-				booleanQueryBuilder.add(new BoostQuery(descriptionQuery, (float) 1), BooleanClause.Occur.SHOULD);
+				booleanQueryBuilder.add(new BoostQuery(descriptionQuery, (float) 3), BooleanClause.Occur.SHOULD);
 				booleanQueryBuilder.add(new BoostQuery(narrativeQuery, (float) 1), BooleanClause.Occur.SHOULD);
 				
 				search(
 					indexSearcher, 
 					booleanQueryBuilder.build(), 
-					writer, 
+					writer,
 					queries.indexOf(element) + 1, 
 					selectedAnalyser,
 					selectedSimilarity
@@ -94,8 +98,7 @@ public class Searcher {
 		ScoreDoc[] hits = is.search(query, NUM_RESULTS).scoreDocs;
 		for (int i = 0; i < hits.length; i++) {
 			Document hitDocument = is.doc(hits[i].doc);
-			writer.println(queryID + " 0 " + hitDocument.get("docid") + " 0 " + hits[i].score + " "+selectedAnalyser + " "+selectedSimilarity);
-			log.info(queryID + " 0 " + hitDocument.get("docid") + " 0 " + hits[i].score + " "+selectedAnalyser + " "+selectedSimilarity);
+			writer.println(queryID + " 0 " + hitDocument.get(CommonConstants.DOC_NO_TAG.toLowerCase()) + " 0 " + hits[i].score + " "+selectedAnalyser + " "+selectedSimilarity);
 		}
 	}
 
