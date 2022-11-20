@@ -50,17 +50,18 @@ public class Searcher {
 			PrintWriter writer = new PrintWriter(resultFile, StandardCharsets.UTF_8.name());
 
 			ArrayList<QueryModel> queries = Parser.parseQuery(queryPath);
-			
-	        HashMap<String, Float> boosts = new HashMap<String, Float>();
-	        boosts.put(CommonConstants.HEADLINE_TAG.toLowerCase(), (float) 3);
+
+			HashMap<String, Float> boosts = new HashMap<String, Float>();
+			boosts.put(CommonConstants.HEADLINE_TAG.toLowerCase(), (float) 3);
 
 			MultiFieldQueryParser queryParser = new MultiFieldQueryParser(
-					new String[] { CommonConstants.HEADLINE_TAG.toLowerCase(), CommonConstants.TEXT_TAG.toLowerCase() }, analyzer, boosts);
+					new String[] { CommonConstants.HEADLINE_TAG.toLowerCase(), CommonConstants.TEXT_TAG.toLowerCase() },
+					analyzer, boosts);
 
 			NUM_RESULTS = numResults;
 			log.debug("Executing the fetched queries, max_hits set to: " + NUM_RESULTS);
 
-			writer.println("Query ID" + "\t" + "Document ID" + "\t" + "Hits Score" + "\t" + "Analyser Used" + "\t"
+			writer.println("Query ID" + "\t" + CommonConstants.DOC_NO_TAG + "\t" + "Hits Score" + "\t" + "Analyser Used" + "\t"
 					+ "Similarity Used");
 
 			for (QueryModel element : queries) {
@@ -68,19 +69,13 @@ public class Searcher {
 				Query descriptionQuery = queryParser.parse(QueryParser.escape(element.getDesc().trim()));
 				Query narrativeQuery = queryParser.parse(QueryParser.escape(element.getNarr().trim()));
 
-				BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();	
+				BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();
 				booleanQueryBuilder.add(new BoostQuery(titleQuery, (float) 5), BooleanClause.Occur.SHOULD);
 				booleanQueryBuilder.add(new BoostQuery(descriptionQuery, (float) 3), BooleanClause.Occur.SHOULD);
 				booleanQueryBuilder.add(new BoostQuery(narrativeQuery, (float) 1), BooleanClause.Occur.SHOULD);
-				
-				search(
-					indexSearcher, 
-					booleanQueryBuilder.build(), 
-					writer,
-					queries.indexOf(element) + 1, 
-					selectedAnalyser,
-					selectedSimilarity
-					);
+
+				search(indexSearcher, booleanQueryBuilder.build(), writer, queries.indexOf(element) + 1,
+						selectedAnalyser, selectedSimilarity);
 			}
 
 			directoryReader.close();
@@ -98,7 +93,8 @@ public class Searcher {
 		ScoreDoc[] hits = is.search(query, NUM_RESULTS).scoreDocs;
 		for (int i = 0; i < hits.length; i++) {
 			Document hitDocument = is.doc(hits[i].doc);
-			writer.println(queryID + " 0 " + hitDocument.get(CommonConstants.DOC_NO_TAG.toLowerCase()) + " 0 " + hits[i].score + " "+selectedAnalyser + " "+selectedSimilarity);
+			writer.println(queryID + " 0 " + hitDocument.get(CommonConstants.DOC_NO_TAG.toLowerCase()) + " 0 "
+					+ hits[i].score + " " + selectedAnalyser + " " + selectedSimilarity);
 		}
 	}
 

@@ -24,7 +24,7 @@ public class CommonConstants {
 
 	public static final String JAR_NAME = "Lucene-Cranfield.jar";
 
-	public static final String STOPWORD_FILE_PATH = "cranfieldData/stopwords.txt";
+	public static final String STOPWORD_FILE_PATH = "documentSet/stopwords.txt";
 
 	public static final String INDEX_PATH = "index/";
 

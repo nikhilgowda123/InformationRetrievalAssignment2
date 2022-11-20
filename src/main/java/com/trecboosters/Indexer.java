@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -14,7 +13,6 @@ import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.search.similarities.BM25Similarity;
@@ -32,7 +30,6 @@ import com.trecboosters.parser.FbisParser;
 import com.trecboosters.parser.Fr94Parser;
 import com.trecboosters.parser.FtParser;
 import com.trecboosters.parser.LatimesParser;
-import com.trecboosters.parser.Parser;
 
 public class Indexer {
 
