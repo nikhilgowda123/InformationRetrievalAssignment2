@@ -74,7 +74,7 @@ public class Searcher {
 				booleanQueryBuilder.add(new BoostQuery(descriptionQuery, (float) 3), BooleanClause.Occur.SHOULD);
 				booleanQueryBuilder.add(new BoostQuery(narrativeQuery, (float) 1), BooleanClause.Occur.SHOULD);
 
-				search(indexSearcher, booleanQueryBuilder.build(), writer, queries.indexOf(element) + 1,
+				search(indexSearcher, booleanQueryBuilder.build(), writer, element.getNum() ,queries.indexOf(element) + 1,
 						selectedAnalyser, selectedSimilarity);
 			}
 
@@ -88,12 +88,12 @@ public class Searcher {
 		}
 	}
 
-	public static void search(IndexSearcher is, Query query, PrintWriter writer, int queryID, String selectedAnalyser,
+	public static void search(IndexSearcher is, Query query, PrintWriter writer, String queryNum, int queryID, String selectedAnalyser,
 			String selectedSimilarity) throws IOException {
 		ScoreDoc[] hits = is.search(query, NUM_RESULTS).scoreDocs;
 		for (int i = 0; i < hits.length; i++) {
 			Document hitDocument = is.doc(hits[i].doc);
-			writer.println(queryID + " 0 " + hitDocument.get(CommonConstants.DOC_NO_TAG.toLowerCase()) + " 0 "
+			writer.println(queryNum + " Q" + queryID + " " + hitDocument.get(CommonConstants.DOC_NO_TAG.toLowerCase()) + " " +(i+1) +" "
 					+ hits[i].score + " " + selectedAnalyser + " " + selectedSimilarity);
 		}
 	}
