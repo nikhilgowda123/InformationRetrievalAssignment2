@@ -12,9 +12,9 @@ public class CommonConstants {
 
 	public static final String HELP_OPTION = "h";
 
-	public static final String DEFAULT_ANALYSER = "english";
+	public static final String DEFAULT_ANALYSER = "EnglishAnalyzer";
 
-	public static final String DEFAULT_SIMILARITY = "bm25";
+	public static final String DEFAULT_SIMILARITY = "BM25";
 
 	public static final String ANALYSER_HELP_TEXT = "Choose the analysers to use from the list :  \n"
 			+ "english\nsimple\nstandard\nstop\nwhitespace\n 'e.g -a simple'\n Default Analyser : english\n";
@@ -28,23 +28,23 @@ public class CommonConstants {
 
 	public static final String INDEX_PATH = "index/";
 
-	public static final String SIMPLE_ANALYSER = "simple";
+	public static final String SIMPLE_ANALYSER = "SimpleAnalyzer";
 
-	public static final String STANDARD_ANALYSER = "standard";
+	public static final String STANDARD_ANALYSER = "StandardAnalyzer";
 
-	public static final String WHITESPACE_ANALYSER = "whitespace";
+	public static final String WHITESPACE_ANALYSER = "WhitespaceAnalyzer";
 
-	public static final String ENGLISH_ANALYSER = "english";
+	public static final String ENGLISH_ANALYSER = "EnglishAnalyzer";
 
-	public static final String STOP_ANALYSER = "stop";
+	public static final String STOP_ANALYSER = "StopAnalyzer";
 
-	public static final String CLASSIC_SIMILARITY = "classic";
+	public static final String CLASSIC_SIMILARITY = "CLASSIC";
 
-	public static final String BOOLEAN_SIMILARITY = "boolean";
+	public static final String BOOLEAN_SIMILARITY = "BOOLEAN";
 
-	public static final String BM25_SIMILARITY = "bm25";
+	public static final String BM25_SIMILARITY = "BM25";
 
-	public static final String LMDS_SIMILARITY = "lmds";
+	public static final String LMDS_SIMILARITY = "LMDS";
 
 	public static final String OUTPUT_FILE_PATH = "output/results.txt";
 	
