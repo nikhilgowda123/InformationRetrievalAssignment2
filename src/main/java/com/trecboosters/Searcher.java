@@ -67,7 +67,7 @@ public class Searcher {
 				Query narrativeQuery = queryParser.parse(QueryParser.escape(element.getNarr().trim()));
 
 				BooleanQuery.Builder booleanQueryBuilder = new BooleanQuery.Builder();
-				booleanQueryBuilder.add(new BoostQuery(titleQuery, (float) 5), BooleanClause.Occur.SHOULD);
+				booleanQueryBuilder.add(new BoostQuery(titleQuery, (float) 5), BooleanClause.Occur.MUST);
 				booleanQueryBuilder.add(new BoostQuery(descriptionQuery, (float) 3), BooleanClause.Occur.SHOULD);
 				booleanQueryBuilder.add(new BoostQuery(narrativeQuery, (float) 1), BooleanClause.Occur.SHOULD);
 
