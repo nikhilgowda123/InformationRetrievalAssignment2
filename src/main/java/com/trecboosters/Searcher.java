@@ -22,17 +22,11 @@ import org.apache.lucene.search.BoostQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.similarities.BM25Similarity;
-import org.apache.lucene.search.similarities.LMJelinekMercerSimilarity;
-import org.apache.lucene.search.similarities.LMSimilarity;
-import org.apache.lucene.search.similarities.MultiSimilarity;
-import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.trecboosters.analyzer.CustomDocumentAnalyzer;
 import com.trecboosters.constants.CommonConstants;
 import com.trecboosters.model.QueryModel;
 import com.trecboosters.parser.Parser;
@@ -50,7 +44,7 @@ public class Searcher {
 			DirectoryReader directoryReader = DirectoryReader.open(directory);
 
 			IndexSearcher indexSearcher = new IndexSearcher(directoryReader);
-			Similarity sm = null;
+			/*Similarity sm = null;
 			if(selectedSimilarity == null || selectedSimilarity.isEmpty())
 			{
 				sm = new BM25Similarity();
@@ -69,10 +63,11 @@ public class Searcher {
 					sm = new BM25Similarity();
 				}
 			}
-			indexSearcher.setSimilarity(sm);
+			indexSearcher.setSimilarity(sm);*/
+			indexSearcher.setSimilarity(Indexer.getSelectedSimilarityObject(selectedSimilarity));
 			
 			
-			Analyzer analyzer = new CustomDocumentAnalyzer();
+			Analyzer analyzer = Indexer.getSelectedAnalyzerObject(selectedAnalyser);
 			
 			File resultFile = new File(CommonConstants.OUTPUT_FILE_PATH);
 			resultFile.getParentFile().mkdirs();
