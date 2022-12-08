@@ -48,19 +48,26 @@ public class FbisParser {
 		String fbisFileContent = CommonUtils.getFile(br);
 		org.jsoup.nodes.Document document = Jsoup.parse(fbisFileContent);
 		List<Element> list = document.getElementsByTag(CommonConstants.DOC_TAG);
-
+		
+		
 		for (Element doc : list) {
 			Document fbisFile = new Document();
-
+			String relevantText = " ";
+			
+			
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.DOC_NO_TAG)))
 				fbisFile.add(new StringField(CommonConstants.DOC_NO_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.DOC_NO_TAG, false), Field.Store.YES));
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.TI_TAG)))
+			{
 				fbisFile.add(new TextField(CommonConstants.HEADLINE_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.TI_TAG, false), Field.Store.YES));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.TI_TAG, false) + " ";
+			}
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.TEXT_TAG)))
-				fbisFile.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(),
-						CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false), Field.Store.NO));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false) + " ";
+			
+			fbisFile.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(), relevantText.trim(), Field.Store.YES));
 
 			iwriter.addDocument(fbisFile);
 			docCount++;
