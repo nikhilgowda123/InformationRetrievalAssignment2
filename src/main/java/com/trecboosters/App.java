@@ -19,8 +19,8 @@ public class App {
 		Options options = new Options();
 		options.addOption(CommonConstants.SIMILARITY_OPTION, true, CommonConstants.SIMILARITY_HELP_TEXT);
 		options.addOption(CommonConstants.HELP_OPTION, false, "Help");
-		String selectedAnalyzer = "";
-		String selectedSimilarity = "";
+		String selectedAnalyzer = CommonConstants.CUSTOM_DOCUMENT_ANALYSER;
+		String selectedSimilarity = CommonConstants.BM25_SIMILARITY;
 		CommandLineParser parser = new DefaultParser();
 
 		try {
