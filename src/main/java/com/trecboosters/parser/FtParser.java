@@ -56,23 +56,25 @@ public class FtParser {
 		String ftFileContents = CommonUtils.getFile(br);
 		org.jsoup.nodes.Document document = Jsoup.parse(ftFileContents);
 		List<Element> list = document.getElementsByTag(CommonConstants.DOC_TAG);
-
+		
 		for (Element doc : list) {
 			Document ftDocument = new Document();
-
+			String relevantText = " ";
+			
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.DOC_NO_TAG)))
 				ftDocument.add(new StringField(CommonConstants.DOC_NO_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.DOC_NO_TAG, false), Field.Store.YES));
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.HEADLINE_TAG)))
+			{
 				ftDocument.add(new TextField(CommonConstants.HEADLINE_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.HEADLINE_TAG, false), Field.Store.YES));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.HEADLINE_TAG, false) + " ";
+			}
+				
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.TEXT_TAG)))
-				ftDocument
-				.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(),
-						CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false)
-						+ CommonUtils.refractorTags(doc, CommonConstants.DATELINE_TAG, false),
-						Field.Store.NO));
-
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false) + " ";
+						
+			ftDocument.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(), relevantText, Field.Store.YES));
 			iwriter.addDocument(ftDocument);
 			docCount++;
 		}

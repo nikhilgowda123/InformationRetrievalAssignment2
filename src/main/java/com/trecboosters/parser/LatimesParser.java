@@ -55,19 +55,23 @@ public class LatimesParser {
 
 		for (Element doc : list) {
 			Document laTimesDoc = new Document();
-
+			String relevantText = " ";
+			
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.DOC_NO_TAG)))
 				laTimesDoc.add(new StringField(CommonConstants.DOC_NO_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.DOC_NO_TAG, true), Field.Store.YES));
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.HEADLINE_TAG)))
+			{
 				laTimesDoc.add(new TextField(CommonConstants.HEADLINE_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.HEADLINE_TAG, true), Field.Store.YES));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.HEADLINE_TAG, false) + " ";
+			}
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.TEXT_TAG)))
-				laTimesDoc.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(),
-						CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, true)
-						+ CommonUtils.refractorTags(doc, CommonConstants.GRAPHIC_TAG, true)
-						+ CommonUtils.refractorTags(doc, CommonConstants.SUBJECT_TAG, true),
-						Field.Store.NO));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false) + " ";
+			
+			laTimesDoc.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(), relevantText,	Field.Store.YES));
+			
+			
 
 			iwriter.addDocument(laTimesDoc);
 			docCount++;

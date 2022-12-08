@@ -42,6 +42,7 @@ public class CommonUtils {
 			if (data.contains("</p>"))
 				data = data.replaceAll("</p>", "").trim();
 		}
+		data = data.trim().replaceAll(" +", " ");
 		return data;
 	}
 

@@ -57,20 +57,24 @@ public class Fr94Parser {
 
 		for (Element doc : documentList) {
 			Document fbisDocument = new Document();
-
+			String relevantText = " ";
+			
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.DOC_NO_TAG)))
 				fbisDocument.add(new StringField(CommonConstants.DOC_NO_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.DOC_NO_TAG, false), Field.Store.YES));
-			fbisDocument.getValues(CommonConstants.DOC_NO_TAG.toLowerCase());
+			
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.DOC_TITLE_TAG)))
+			{
 				fbisDocument.add(new TextField(CommonConstants.HEADLINE_TAG.toLowerCase(),
 						CommonUtils.refractorTags(doc, CommonConstants.DOC_TITLE_TAG, false), Field.Store.YES));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.DOC_TITLE_TAG, false) + " ";
+			}
+			
 			if (Objects.nonNull(doc.getElementsByTag(CommonConstants.TEXT_TAG)))
-				fbisDocument
-				.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(),
-						CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false)
-						+ CommonUtils.refractorTags(doc, CommonConstants.FOOTNOTE_TAG, false),
-						Field.Store.NO));
+				relevantText += CommonUtils.refractorTags(doc, CommonConstants.TEXT_TAG, false) + " ";
+				
+			fbisDocument
+				.add(new TextField(CommonConstants.TEXT_TAG.toLowerCase(), relevantText, Field.Store.YES));
 
 			iwriter.addDocument(fbisDocument);
 			docCount++;

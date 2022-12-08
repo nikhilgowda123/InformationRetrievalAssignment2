@@ -25,6 +25,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.trecboosters.analyzer.CustomDocumentAnalyzer;
 import com.trecboosters.constants.CommonConstants;
 import com.trecboosters.parser.FbisParser;
 import com.trecboosters.parser.Fr94Parser;
@@ -35,17 +36,16 @@ public class Indexer {
 
 	public static Logger log = LoggerFactory.getLogger(Indexer.class);
 
-	public static boolean createIndex(String cranDocumentPath, String selectedAnalyser, String selectedSimilarity) {
-
-		Analyzer analyzer = getSelectedAnalyzerObject(selectedAnalyser);
-		Similarity similarity = getSelectedSimilarityObject(selectedSimilarity);
-
-		try {
-			assert analyzer != null;
+	public static boolean createIndex(String cranDocumentPath, String selectedAnalyser, String selectedSimilarity) 
+	{
+		try
+		{
 			Directory directory = FSDirectory.open(Paths.get(CommonConstants.INDEX_PATH));
+			
+			Analyzer analyzer  = new CustomDocumentAnalyzer();
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 			iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-			iwc.setSimilarity(similarity);
+			
 			IndexWriter indexWriter = new IndexWriter(directory, iwc);
 			FtParser.indexFtFiles(indexWriter);
 			Fr94Parser.indexFr94Files(indexWriter);
@@ -54,7 +54,9 @@ public class Indexer {
 			indexWriter.close();
 			log.info("Please check index path " + CommonConstants.INDEX_PATH);
 
-		} catch (IOException ioe) {
+		}
+		catch (IOException ioe) 
+		{
 			log.error("Error occured while indexing", ioe);
 		}
 		return true;
