@@ -42,7 +42,7 @@ public class App {
 			log.error("Exception occured while parsing the arguments", e);
 		}
 		
-		selectedAnalyzer = "CustomAnalyser";
+		selectedAnalyzer = "CustomDocumentAnalyzer";
 		
 		if(selectedSimilarity == null || selectedSimilarity.isEmpty())
 			selectedSimilarity = "BM25";
