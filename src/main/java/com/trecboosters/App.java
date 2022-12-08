@@ -17,11 +17,10 @@ public class App {
 
 		log.info("Started");
 		Options options = new Options();
-		options.addOption(CommonConstants.ANALYSER_OPTION, true, CommonConstants.ANALYSER_HELP_TEXT);
 		options.addOption(CommonConstants.SIMILARITY_OPTION, true, CommonConstants.SIMILARITY_HELP_TEXT);
 		options.addOption(CommonConstants.HELP_OPTION, false, "Help");
-		String selectedAnalyzer = CommonConstants.DEFAULT_ANALYSER;
-		String selectedSimilarity = CommonConstants.DEFAULT_SIMILARITY;
+		String selectedAnalyzer = "";
+		String selectedSimilarity = "";
 		CommandLineParser parser = new DefaultParser();
 
 		try {
@@ -30,11 +29,8 @@ public class App {
 				log.warn("Command Line Arguments not detected. Using Default values");
 			} else {
 
-				if (commandLine.hasOption(CommonConstants.ANALYSER_OPTION))
-					selectedAnalyzer = commandLine.getOptionValue(CommonConstants.ANALYSER_OPTION).toLowerCase();
-
 				if (commandLine.hasOption(CommonConstants.SIMILARITY_OPTION))
-					selectedSimilarity = commandLine.getOptionValue(CommonConstants.SIMILARITY_OPTION).toLowerCase();
+					selectedSimilarity = commandLine.getOptionValue(CommonConstants.SIMILARITY_OPTION);
 
 				if (commandLine.hasOption(CommonConstants.HELP_OPTION)) {
 					HelpFormatter helpFormatter = new HelpFormatter();
@@ -45,6 +41,12 @@ public class App {
 		} catch (Exception e) {
 			log.error("Exception occured while parsing the arguments", e);
 		}
+		
+		selectedAnalyzer = "CustomAnalyser";
+		
+		if(selectedSimilarity == null || selectedSimilarity.isEmpty())
+			selectedSimilarity = "BM25";
+		
 		log.info("Selected Analyser : " + selectedAnalyzer);
 		log.info("Selected Similarity : " + selectedSimilarity);
 
