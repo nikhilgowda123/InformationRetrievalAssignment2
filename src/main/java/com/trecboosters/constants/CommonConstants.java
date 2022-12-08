@@ -62,12 +62,16 @@ public class CommonConstants
 	public static final String ENGLISH_ANALYSER = "EnglishAnalyzer";
 
 	public static final String STOP_ANALYSER = "StopAnalyzer";
+	
+	public static final String CUSTOM_DOCUMENT_ANALYSER = "CustomDocumentAnalyzer";
 
 	public static final String CLASSIC_SIMILARITY = "CLASSIC";
 
 	public static final String BOOLEAN_SIMILARITY = "BOOLEAN";
 
 	public static final String BM25_SIMILARITY = "BM25";
+	
+	public static final String MULTI_SIMILARITY = "Multi";
 
 	public static final String LMDS_SIMILARITY = "LMDS";
 
